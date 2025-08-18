@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Album {
+  id       String @id
+  name     String
+  artist   String
+  year     Int
+  coverUrl String
+  tracks   Track[]
+}
+
+model Track {
+  id          String @id
+  albumId     String
+  album       Album   @relation(fields: [albumId], references: [id], onDelete: Cascade)
+  name        String
+  durationMs  Int
+  trackNumber Int
+  rating      Rating?
+}
+
+model Rating {
+  id        Int    @id @default(autoincrement())
+  trackId   String @unique
+  track     Track  @relation(fields: [trackId], references: [id], onDelete: Cascade)
+  score     Int
+  updatedAt DateTime @updatedAt
+}
