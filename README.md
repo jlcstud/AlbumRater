@@ -11,6 +11,8 @@ npm install
 ```
 
 2. Create `.env.local` based on `.env.example` and fill in your Spotify credentials.
+   The default `DATABASE_URL` points to `file:../data/albumrater.sqlite`,
+   which resolves to `data/albumrater.sqlite` in the project root.
 
 3. Generate Prisma client and run the initial migration:
 
